@@ -73,9 +73,9 @@ In general, actions are composed as follows:
 
 When writing and running your pipeline, note that:
 
-* All file paths must be declared relative to the repository's root directory. So for example use `outputs/figures/`, not `C:/users/elvis/documents/myrepo/outputs/figures`.
+* Everything will be run inside a Linux Docker container &mdash; see the [execution environments](pipelines.md#execution-environments) section below. There will be some differences in how things work if you are used to using Windows. For instance, file paths are case-sensitive.
 
-* File paths are case-sensitive as everything is run inside a Linux Docker container.
+* All file paths must be declared relative to the repository's root directory. So for example use `outputs/figures/`, not `C:/users/bgates/documents/myrepo/outputs/figures`.
 
 * The location of each action's output is determined by the underlying code that the action invoked, not by the value of the `outputs` configuration. The purpose of `outputs` is to label the disclosivity of each output and indicate that it should be stored securely &mdash; **any outputs not labelled will not be saved.**
 
@@ -90,7 +90,7 @@ OpenSAFELY currently supports Stata, Python, and R for statistical analysis.
 
 For security reasons, available libraries are restricted to those provided by the framework.
 
-The framework executes your scripts using Docker images which have been preloaded with a fixed set of libraries. These Docker images have yet to be optimised; if you have skills in creating Dockerfiles and would like to help, get in touch!
+The framework executes your scripts using Linux-based Docker images which have been preloaded with a fixed set of libraries. These Docker images have yet to be optimised; if you have skills in creating Dockerfiles and would like to help, get in touch!
 
 ### Stata
 
