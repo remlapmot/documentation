@@ -66,11 +66,10 @@ measures = [
     ),
 ]
 ```
-This differs from a normal study definition due to the addition of the `measures` object, which is a list of calls to the `Measure()` function, for each measure.
+This differs from a normal study definition due to the addition of the `measures` object, which is a list of calls to the `Measure()` function for each measure, described below.
 
-* `id` is just a string used to identify the measure output file. 
-* `numerator` and `denominator` are the columns in the dataset that define the measure. They must be numeric or boolean (encoded as 0 or 1). 
-* `group_by` column can be of any type. 
+::: cohortextractor.measure.Measure
+&nbsp;
 
 ## Extract the data
 
@@ -111,6 +110,10 @@ This is done using the `generate_measures` command:
 ```
 cohortextractor generate_measures
 ```
+
+
+
+
 
 For each defined measure, and for each file extracted in step 2, this generates an output file with the measure calculated for that month or week.
 
