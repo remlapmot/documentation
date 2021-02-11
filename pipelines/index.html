@@ -1226,20 +1226,18 @@ This will ensure for example that both the <code>run_model</code> and <code>gene
 <p>Each time an action is run, logging information about your run will be put into the  <code>metadata/</code> folder. 
 If any of your actions fail, you may find clues here as to why.</p>
 <details>
-  <summary>Click here for information on the exact steps that occur when each job is run locally</summary>
-
-What happens:
-
-1. A new, empty temporary directory for the job is created
-2. Any files in the local repo that _do not_ match the output patterns in the `project.yaml` are copied into the temporary folder
-3. Any output files from the job's dependencies are copied into the temporary folder
-4. The job is run
-5. All the files matching the specified output patterns are copied into the local repo
-6. The log files for the job are saved into the `metadata/` directory
-7. The temporary directory is deleted
-
+<p><summary>Click here for information on the exact steps that occur when each job is run locally</summary></p>
+<p>What happens:</p>
+<ol>
+<li>A new, empty temporary directory for the job is created</li>
+<li>Any files in the local repo that <em>do not</em> match the output patterns in the <code>project.yaml</code> are copied into the temporary folder</li>
+<li>Any output files from the job's dependencies are copied into the temporary folder</li>
+<li>The job is run</li>
+<li>All the files matching the specified output patterns are copied into the local repo</li>
+<li>The log files for the job are saved into the <code>metadata/</code> directory</li>
+<li>The temporary directory is deleted</li>
+</ol>
 </details>
-
 <h2 id="running-your-code-with-github-actions">Running your code with GitHub actions<a class="headerlink" href="#running-your-code-with-github-actions" title="Permanent link">&#128279;</a></h2>
 <p>Every time you create a pull request to merge a development branch onto the main remote branch, GitHub will automatically run a series of tests on the code; specifically, that your codelists are up-to-date, and that <code>run_all</code> completes successfully.
 Depending on your settings, you may receive email notifications about the results of these tests.
@@ -1271,18 +1269,17 @@ To submit jobs (i.e., to run actions), the general process is as follows:</p>
 <p>The workspace is available at <code>https://jobs.opensafely.org/&lt;WORKSPACE_NAME&gt;/</code>.
 You can view the progress of these actions by click the <code>Logs</code> button from the workspace, or going to <code>https://jobs.opensafely.org/&lt;WORKSPACE_NAME&gt;/logs</code>.</p>
 <details>
-<summary>Click here for information on the exact steps that occur when each job is run on the server</summary>
-
-What happens:
-
-1. A new, empty temporary directory for the job is created
-2. Copy in all files on the selected branch
-3. The job is run
-4. All the files matching the specified output patterns are copied into the local repo
-5. The log files for the job are saved into the `metadata/` directory
-6. The temporary directory is deleted
+<p><summary>Click here for information on the exact steps that occur when each job is run on the server</summary></p>
+<p>What happens:</p>
+<ol>
+<li>A new, empty temporary directory for the job is created</li>
+<li>Copy in all files on the selected branch</li>
+<li>The job is run</li>
+<li>All the files matching the specified output patterns are copied into the local repo</li>
+<li>The log files for the job are saved into the <code>metadata/</code> directory</li>
+<li>The temporary directory is deleted</li>
+</ol>
 </details>
-
 <p>The job will either succeed or fail. 
 In either case, the output and log files are only visible in the secure environment to avoid disclosure of potentially sensitive information.</p>
 <h3 id="accessing-the-outputs">Accessing the outputs<a class="headerlink" href="#accessing-the-outputs" title="Permanent link">&#128279;</a></h3>
