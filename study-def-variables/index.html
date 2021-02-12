@@ -737,6 +737,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#earliest-specimen-dataset" class="md-nav__link">
+    Earliest Specimen Dataset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-tests-dataset" class="md-nav__link">
+    All Tests Dataset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-gene-target-failure" class="md-nav__link">
+    S-Gene Target Failure
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1407,6 +1428,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#earliest-specimen-dataset" class="md-nav__link">
+    Earliest Specimen Dataset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-tests-dataset" class="md-nav__link">
+    All Tests Dataset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-gene-target-failure" class="md-nav__link">
+    S-Gene Target Failure
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1966,8 +2008,9 @@ registered_practice_as_of<span class="p">(</span><span class="n">date</span><spa
 <tr>
 <td><code>returning</code></td>
 <td>
-<p>a str defining the type of data to be returned. options include <code>msoa</code>, nuts1_region_name,
- and <code>stp_code</code>. The default value is <code>None</code>.</p>
+<p>a str defining the type of data to be returned. options include <code>msoa</code> (Middle Layer Super Output Area codes),
+ <code>nuts1_region_name</code> (9 English regions), <code>stp_code</code> (Sustainability Transformation Partnerships codes) and <code>pseudo_id</code>
+ (Pseudonymised GP practice identifier). The default value is <code>None</code>.</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -4072,32 +4115,34 @@ For more information, see the <a href="../dataset-sgsscovid/"><abbr title="Secon
 <h4 class="doc doc-heading" id="cohortextractor.patients.with_test_result_in_sgss">
 
         <code class="highlight language-python">
-with_test_result_in_sgss<span class="p">(</span><span class="n">pathogen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_result</span><span class="o">=</span><span class="s1">'any'</span><span class="p">,</span> <span class="n">on_or_before</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_or_after</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">between</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">find_first_match_in_period</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">find_last_match_in_period</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">returning</span><span class="o">=</span><span class="s1">'binary_flag'</span><span class="p">,</span> <span class="n">date_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_expectations</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+with_test_result_in_sgss<span class="p">(</span><span class="n">pathogen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">test_result</span><span class="o">=</span><span class="s1">'any'</span><span class="p">,</span> <span class="n">on_or_before</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_or_after</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">between</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">find_first_match_in_period</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">find_last_match_in_period</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">restrict_to_earliest_specimen_date</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">returning</span><span class="o">=</span><span class="s1">'binary_flag'</span><span class="p">,</span> <span class="n">date_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_expectations</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
 
 
       <a class="headerlink" href="#cohortextractor.patients.with_test_result_in_sgss" title="Permanent link">&#128279;</a></h4>
 <div class="doc doc-contents first">
-<p>Finds lab test results recorded in SGSS (Second Generation Surveillance
-System).</p>
-<p>Please note for the dates this is used in the database as the date the specimen was taken, rather than the
-date of the lab result.</p>
-<p>There's an important caveat here: where a patient has multiple positive
-tests, SGSS groups these into "episodes" (referred to as
-"Organism-Patient-Illness-Episodes"). Each pathogen has a maximum episode
-duration (usually 2 weeks) and unless positive tests are separated by
-longer than this period they are assumed to be the same episode of illness.
-The specimen date recorded is the <em>earliest</em> positive specimen within the
-episode.</p>
+<p>Finds COVID lab test results recorded in SGSS (Second Generation
+Surveillance System).</p>
+<p>Please note that all dates used here are "specimen dates" (i.e. the date
+the specimen was taken), rather than the date the lab result was obtained.</p>
+<p>It's important to note that data is supplied in two separate datasets: an
+"Earliest Specimen" dataset and an "All Tests" dataset.</p>
+<h3 id="earliest-specimen-dataset">Earliest Specimen Dataset<a class="headerlink" href="#earliest-specimen-dataset" title="Permanent link">&#128279;</a></h3>
+<p>Where a patient has multiple positive tests, SGSS groups these into
+"episodes" (referred to as "Organism-Patient-Illness-Episodes"). Each
+pathogen has a maximum episode duration (usually 2 weeks) and unless
+positive tests are separated by longer than this period they are assumed to
+be the same episode of illness.  The specimen date recorded is the
+<em>earliest</em> positive specimen within the episode.</p>
 <p>For SARS-CoV-2 the episode length has been set to infinity, meaning that
 once a patient has tested positive every positive test will be part of the
 same episode and record the same specimen date.</p>
 <p>This means that using <code>find_last_match_in_period</code> is pointless when
 querying for positive results as only one date will ever be recorded and it
 will be the earliest.</p>
-<p>Our natural assumption, though it doesn't seem to be explicity stated in
-the documentation, is that every negative result is treated as unique.</p>
-<p>For more detail on SGSS in general see:
-https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/739854/PHE_Laboratory_Reporting_Guidelines.pdf</p>
+<p>Our original assumption, though the documentation didn't state either way,
+is that every negative result would be treated as unique. However this does
+not appear to be the case as though some patients do have multiple negative
+tests in this dataset, the number is far too small to be realistic.</p>
 <p>Information about the SARS-CoV-2 episode length was via email from someone
 at the National Infection Service:</p>
 <div class="highlight">
@@ -4107,6 +4152,38 @@ episode. This may change, but is set as it is due to limited
 information around re-infection and virus clearance.
 </code></pre>
 </div>
+<h3 id="all-tests-dataset">All Tests Dataset<a class="headerlink" href="#all-tests-dataset" title="Permanent link">&#128279;</a></h3>
+<p>This dataset is not subject to the same restriction as above and we expect
+each individual test result (postive or negative) to appear in this
+regardless of whether they are considered as within the same infection
+episode. In an ideal world we could use just this dataset, but there are
+some fields we need (e.g. SGTF) which are only supplied on the "earliest
+specimen" dataset.</p>
+<h3 id="s-gene-target-failure">S-Gene Target Failure<a class="headerlink" href="#s-gene-target-failure" title="Permanent link">&#128279;</a></h3>
+<p>Using the <code>returning="s_gene_target_failure"</code> option provides additional
+output from PCR tests results which can be used as a proxy for the presence
+of certain Variants of Concern.</p>
+<p>Possible values are "", "0", "1", "9"</p>
+<p>Definitions (from email from PHE)</p>
+<div class="highlight">
+<pre><span></span><code>1: Isolate with confirmed SGTF
+Undetectable S gene; CT value (CH3) =0
+Detectable ORF1ab gene; CT value (CH2) &lt;=30 and &gt;0
+Detectable N gene; CT value (CH1) &lt;=30 and &gt;0
+
+0: S gene detected
+Detectable S gene (CH3&gt;0)
+Detectable y ORF1ab CT value (CH1) &lt;=30 and &gt;0
+Detectable N gene CT value (CH2) &lt;=30 and &gt;0
+
+9: Cannot be classified
+
+Null are where the target is not S Gene. I think LFTs are currently
+also coming across as 9 so will need to review those to null as well as
+clearly this is a PCR only variable.
+</code></pre>
+</div>
+<p>For more detail on SGSS in general see <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/739854/PHE_Laboratory_Reporting_Guidelines.pdf">PHE_Laboratory_Reporting_Guidelines.pdf</a></p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -4120,9 +4197,9 @@ information around re-infection and virus clearance.
 <tr>
 <td><code>pathogen</code></td>
 <td>
-<p>pathogen we are interested in. Only SARS-CoV-2 results are included in our data extract so this
-will throw an error if the specified pathogen is anything other than
-"SARS-CoV-2".</p>
+<p>pathogen we are interested in. Only SARS-CoV-2 results are
+included in our data extract so this will throw an error if the
+specified pathogen is anything other than "SARS-CoV-2".</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -4136,66 +4213,84 @@ will throw an error if the specified pathogen is anything other than
 <tr>
 <td><code>on_or_before</code></td>
 <td>
-<p>date of interest as a string with the format <code>YYYY-MM-DD</code>. Filters results to
-on or before the given date. The default value is <code>None</code>.</p>
+<p>date of interest as a string with the format
+<code>YYYY-MM-DD</code>. Filters results to on or before the given date. The
+default value is <code>None</code>.</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
 <td><code>on_or_after</code></td>
 <td>
-<p>date of interest as a string with the format <code>YYYY-MM-DD</code>. Filters results to
-on or after the given date. The default value is <code>None</code>.</p>
+<p>date of interest as a string with the format <code>YYYY-MM-DD</code>.
+Filters results to on or after the given date. The default value is
+<code>None</code>.</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
 <td><code>between</code></td>
 <td>
-<p>two dates of interest as a list with each date as a string with the format <code>YYYY-MM-DD</code>.
-Filters results to between the two dates provided. The default value is <code>None</code>.</p>
+<p>two dates of interest as a list with each date as a string
+with the format <code>YYYY-MM-DD</code>.  Filters results to between the two
+dates provided. The default value is <code>None</code>.</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
 <td><code>find_first_match_in_period</code></td>
 <td>
-<p>a boolean that indicates if the data returned is first event
-if there are multiple matches within the time period</p>
+<p>a boolean that indicates if the data
+returned is first event if there are multiple matches within the
+time period</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
 <td><code>find_last_match_in_period</code></td>
 <td>
-<p>a boolean that indicates if the data returned is last event
-if there are multiple matches within the time period</p>
+<p>a boolean that indicates if the data
+returned is last event if there are multiple matches within the
+time period</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
+<td><code>restrict_to_earliest_specimen_date</code></td>
+<td>
+<p>a boolean indicating whether to use
+the "earliest specimen" or "all tests" dataset (see above). True by
+default, meaning that the "earliest specimen" dataset is used.</p>
+</td>
+<td><code>True</code></td>
+</tr>
+<tr>
 <td><code>returning</code></td>
 <td>
-<p>a string indicating what type of value should be returned. The options are limited to binary_flag
-(which indicates if they have had the an event or not) and date (which indicate date of event and used
-with either find_first_match_in_period or find_last_match_in_period)</p>
+<p>a string indicating what type of value should be returned.
+The options are limited to <code>binary_flag</code> (which indicates if they
+have had the an event or not), <code>date</code> (which indicate date of event
+and used with either find_first_match_in_period or
+find_last_match_in_period) and <code>s_gene_target_failure</code> which
+returns the value of the SGTF field (see above)</p>
 </td>
 <td><code>'binary_flag'</code></td>
 </tr>
 <tr>
 <td><code>date_format</code></td>
 <td>
-<p>a string detailing the format of the dates to be returned. It can be <code>YYYY-MM-DD</code>,
-<code>YYYY-MM</code> or <code>YYYY</code> and wherever possible the least disclosive data should be returned. i.e returning
-only year is less disclosive than a date with day, month and year.</p>
+<p>a string detailing the format of the dates to be returned.
+It can be <code>YYYY-MM-DD</code>, <code>YYYY-MM</code> or <code>YYYY</code> and wherever possible
+the least disclosive data should be returned. i.e returning only
+year is less disclosive than a date with day, month and year.</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
 <td><code>return_expectations</code></td>
 <td>
-<p>a dictionary defining the incidence and distribution of expected value
-within the population in question.</p>
+<p>a dictionary defining the incidence and
+distribution of expected value within the population in question.</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -4213,16 +4308,18 @@ within the population in question.</p>
 <tr>
 <td><code>list</code></td>
 <td>
-<p>of integers of <code>1</code> or <code>0</code> if <code>returning</code> argument is set to <code>binary_flag</code>;
-    list of strings with a date format returned if <code>returning</code> argument is set to <code>date</code>;</p>
+<p>of integers of <code>1</code> or <code>0</code> if <code>returning</code> argument is set to
+    <code>binary_flag</code>; list of strings with a date format returned if
+    <code>returning</code> argument is set to <code>date</code>;</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>Two variables are created. One called <code>first_tested_for_covid</code> is the first date that a patient has a
-covid test never mind the result. The second called <code>first_positive_test_date</code> is the first date
-that a patient has a positive test result.</p>
+<p>Two variables are created. One called <code>first_tested_for_covid</code> is the
+first date that a patient has a covid test never mind the result. The
+second called <code>first_positive_test_date</code> is the first date that a
+patient has a positive test result.</p>
 <div class="highlight">
 <pre><span></span><code>first_tested_for_covid=patients.with_test_result_in_sgss(
     pathogen="SARS-CoV-2",
