@@ -1189,15 +1189,15 @@ In general, actions are composed as follows:</p>
 <p>The framework executes your scripts using Docker images which have been preloaded with a fixed set of libraries. 
 These Docker images have yet to be optimised; if you have skills in creating Dockerfiles and would like to help, get in touch!</p>
 <h3 id="stata">Stata<a class="headerlink" href="#stata" title="Permanent link">&#128279;</a></h3>
-<p>We currently package version 16.1, with <code>datacheck</code>, <code>safetab</code>, and <code>safecount</code> libraries installed; when installed, new libraries will appear <a href="https://github.com/opensafely/stata-docker/tree/master/libraries">in the stata-docker Github repository</a>.</p>
-<p>As Stata is a commercial product, and the image incorporates our license key, the Docker image and <a href="https://github.com/opensafely/stata-docker/">Github repository</a> are currently private, pending work to separate the license from the image.
-Get in touch if you need to apply your own license and we can accelerate this work.</p>
+<p>We currently package version 16.1, with <code>datacheck</code>, <code>safetab</code>, and <code>safecount</code> libraries installed; when installed, new libraries will appear <a href="https://github.com/opensafely-core/stata-docker/tree/master/libraries">in the stata-docker Github repository</a>.</p>
+<p>As Stata is a commercial product, a license key is needed to use it. If you are
+a member of the opensafely Github organisation, then the tooling will
+automatically use the OpenSAFELY stata license. If not, get in touch if you
+need to apply your own license and we can help.</p>
 <h3 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&#128279;</a></h3>
 <p>The docker image provided is Python 3.8, with <a href="https://github.com/opensafely-core/python-docker/blob/main/requirements.txt">this list of packages installed</a>.</p>
 <h3 id="r">R<a class="headerlink" href="#r" title="Permanent link">&#128279;</a></h3>
-<p>The R image provided is R 4.0, with <a href="https://github.com/opensafely-core/r-docker/blob/master/Dockerfile#L30">this list of libraries installed</a>. 
-Currently our configuration doesn't list the precise versions of the libraries. 
-If you need this, get in touch and we will accelerate this work.</p>
+<p>The R image provided is R 4.0, with <a href="https://github.com/opensafely-core/r-docker/blob/master/packages.csv">this list of libraries installed</a>. </p>
 <h2 id="running-your-code-locally">Running your code locally<a class="headerlink" href="#running-your-code-locally" title="Permanent link">&#128279;</a></h2>
 <p>Whilst you can develop and run code locally using your own installations of R, Stata or Python, it's important to check that these will also successfully run on the real data in an identical execution environment.</p>
 <p>The <code>opensafely run</code> command will execute one or more actions according to the <code>project.yaml</code>.
@@ -1208,7 +1208,6 @@ To see its options, type <code>opensafely run --help</code>.</p>
 <li>The Docker daemon must be running on your machine:</li>
 <li>For Windows users using Docker Desktop, there should be a Docker icon in your system tray.</li>
 <li>For Mac users using Docker Desktop, there should be a Docker icon in the top status bar.</li>
-<li>You <em>may</em> need credentials for our docker registry (for example, if you are running Stata actions, which require a licensed version). If you have access, you can see <a href="https://github.com/opensafely/server-instructions/blob/master/docs/Server-side%20how-to.md#log-in-to-docker">instructions for this here</a>.</li>
 </ul>
 <p>To run the first action in the example above, using dummy data, you can use:</p>
 <div class="highlight"><pre><span></span><code>opensafely run generate_study_population
